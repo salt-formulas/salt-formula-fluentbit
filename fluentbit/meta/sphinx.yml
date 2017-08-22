@@ -1,0 +1,12 @@
+{%- from "fluentbit/map.jinja" import fluentbit with context %}
+# Fill in documentation details
+doc:
+  name: fluentbit
+  description: Some service info
+  role:
+    fluentbit:
+      name: fluentbit
+      param:
+        some_param:
+          name: "Some name"
+          value: "some value"

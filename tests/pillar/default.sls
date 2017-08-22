@@ -1,0 +1,3 @@
+fluentbit:
+  enabled: true
+  config: {}

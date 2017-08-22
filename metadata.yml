@@ -1,0 +1,3 @@
+name: "fluentbit"
+version: "2017.8"
+source: "https://github.com/salt-formulas/salt-formula-fluentbit"

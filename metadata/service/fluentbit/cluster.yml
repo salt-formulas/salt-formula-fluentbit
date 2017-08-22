@@ -1,0 +1,10 @@
+applications:
+- fluentbit
+classes:
+- service.fluentbit.support
+parameters:
+  fluentbit:
+    fluentbit:
+      enabled: true
+      bind:
+        address: 0.0.0.0

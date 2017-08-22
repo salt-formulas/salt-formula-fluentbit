@@ -1,0 +1,15 @@
+Source: salt-formula-fluentbit
+Maintainer: Petr Michalec pmichalec@mirantis.com
+Section: admin
+Priority: optional
+Build-Depends: debhelper (>= 9), salt-master, python, python-yaml
+Standards-Version: 3.9.6
+Homepage: https://github.com/salt-formulas
+Vcs-Browser: https://github.com/salt-formulas/salt-formula-fluentbit
+Vcs-Git: https://github.com/salt-formulas/salt-formula-fluentbit.git
+
+Package: salt-formula-fluentbit
+Architecture: all
+Depends: ${misc:Depends}, salt-master, reclass
+Description: fluentbit salt formula
+ Install and configure fluentbit system.
