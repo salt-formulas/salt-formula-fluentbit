@@ -1,0 +1,25 @@
+parameters:
+  fluentbit:
+    config:
+      input:
+        system.conf:
+          kmsg:
+            filter: input
+            tag: system_log_kernel
+          syslog:
+            filter: input
+            chunk_size: 32
+            buffer_size: 64
+            path: /var/log/syslog
+            tag: system_log_syslog
+          systemd:
+            filter: input
+            tag: host.*
+            systemd_filter:
+              - _SYSTEM_UNIT=*.service
+              - _SYSTEM_UNIT=*.network
+              - _SYSTEM_UNIT=*.boot
+      service:
+        td-agent-bit.conf:
+          - '@INCLUDE input_system.conf'
+

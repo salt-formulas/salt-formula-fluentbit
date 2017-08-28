@@ -1,0 +1,14 @@
+system:
+  repo:
+    {%- if grains.os_family == 'Debian' %}
+    fluentbit:
+      source: "deb [arch=amd64] http://packages.fluentbit.io/{{ grains.os|lower }} {{ grains.lsb_distrib_codename|lower }} main"
+      architectures: amd64
+      key_url: "http://packages.fluentbit.io/fluentbit.key"
+      clean_file: true
+    {%- elif grains.os_family == 'RedHat' %}
+    fluentbit:
+      baseurl: "http://packages.fluentbit.io/{{ grains.os|lower }}/{{ grains.lsb_distrib_codename|lower }}"
+      gpgkey: "http://packages.fluentbit.io/fluentbit.key"
+      gpgcheck: true
+    {%- endif %}

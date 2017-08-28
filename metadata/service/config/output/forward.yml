@@ -1,0 +1,22 @@
+parameters:
+  _param:
+    fluentd_service_address: 127.0.0.1
+    fluentd_service_port: 24224
+  fluentbit:
+    config:
+      output:
+        forward.conf:
+          forward:
+            host: ${_param:fluentd_service_address}
+            port: ${_param:fluentd_service_port}
+            time_as_integer: false
+            match: '*'
+            # TODO: enable TLS
+            # http://fluentbit.io/documentation/current/output/forward.html
+            # Shared_Key    secret
+            # Self_Hostname flb.local
+            # tls           on
+            # tls.verify    off
+      service:
+        td-agent-bit.conf:
+          - '@INCLUDE output_forward.conf'

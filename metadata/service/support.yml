@@ -9,3 +9,11 @@ parameters:
         enabled: false
       sphinx:
         enabled: true
+      linux:
+        enabled: true
+      fluentbit:
+        enabled: true
+    config:
+      service:
+        td-agent-bit.conf:
+          - '@INCLUDE input_system_metrics.conf'

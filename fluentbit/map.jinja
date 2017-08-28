@@ -1,10 +1,48 @@
+{# Load formula support meta on other formulas, <formula>/meta/fluentbit.yml #}
+{%- set _fluentbit_meta = {} %}
+{%- for service_name, service in pillar.items() %}
+  {%- if service.get('_support', {}).get('fluentbit', {}).get('enabled', False) %}
+    {%- set fluentbit_fragment_file = service_name+'/meta/fluentbit.yml' %}
+    {%- macro load_fluentbit_file() %}{% include fluentbit_fragment_file ignore missing %}{% endmacro %}
+    {%- set fluentbit_meta_yaml = load_fluentbit_file()|load_yaml %}
+    {%- if fluentbit_meta_yaml is mapping %}
+      {%- set _fluentbit_meta = salt['grains.filter_by']({'default': _fluentbit_meta}, merge=fluentbit_meta_yaml) %}
+    {%- endif %}
+  {%- endif %}
+{%- endfor %}
 
 {%- load_yaml as base_defaults %}
-
 Debian:
+  enabled: true
+  install_dir: /opt/td-agent-bit
+  config_dir: /etc/td-agent-bit
   pkgs:
   - td-agent-bit
-
+  service:
+    flush: 5
+    daemon: on
+    log_level: info
+    parsers_file:
+      - parsers.conf
+  config: {}
+  repo:
+    enabled: false
+RedHat:
+  enabled: true
+  install_dir: /opt/td-agent-bit
+  config_dir: /etc/td-agent-bit
+  pkgs:
+  - td-agent-bit
+  config: {}
+  service:
+    flush: 5
+    daemon: off
+    log_level: info
+    parsers_file:
+      - parsers.conf
+  repo:
+    enabled: false
 {%- endload %}
 
-{%- set fluentbit = salt['grains.filter_by'](base_defaults, merge=salt['pillar.get']('fluentbit:fluentbit')) %}
+{%- set fluentbit = salt['grains.filter_by'](base_defaults, merge=_fluentbit_meta) %}
+{%- do salt['defaults.merge'](fluentbit, salt['pillar.get']('fluentbit')) %}

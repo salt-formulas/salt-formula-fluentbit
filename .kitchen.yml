@@ -9,35 +9,74 @@ provisioner:
   salt_install: bootstrap
   salt_bootstrap_url: https://bootstrap.saltstack.com
   salt_version: latest
+  # salt_bootstrap_options: -P git
   require_chef: false
   log_level: error
   formula: fluentbit
+  dependencies:
+    - name: linux
+      repo: git
+      source: https://github.com/salt-formulas/salt-formula-linux
   grains:
     noservices: True
   state_top:
     base:
       "*":
+        - linux.system.repo
         - fluentbit
   pillars:
     top.sls:
       base:
         "*":
+          - linux
           - fluentbit
+    linux.sls: {}
 
 verifier:
   name: inspec
   sudo: true
 
-
+<% platform = ENV['PLATFORM'] || 'xenial' %>
+<% dist_version = platform.split(/:|-/)[-1] %>
 platforms:
-  - name: <%=ENV['PLATFORM'] || 'ubuntu-xenial'%>
+  <% if %w(xenial trusty zesty).include? dist_version %>
+  - name: <%= ENV['PLATFORM'] || 'ubuntu-xenial' %>
     driver_config:
-      image: <%=ENV['PLATFORM'] || 'trevorj/salty-whales:xenial'%>
+      image: <%= ENV['PLATFORM'] || 'trevorj/salty-whales:xenial'%>
       platform: ubuntu
+  <% else %>
+  - name: <%= ENV['PLATFORM'] || 'centos-7' %>
+    driver_config:
+      image: <%= ENV['PLATFORM'] || 'corux/centos7-salt:latest'%>
+      platform: centos
+      privileged: True
+      run_command: /usr/sbin/init
+  <% end %>
+    provisioner:
+      init_environment: |
+        sudo yum install -y git || sudo apt-get install -y git || true
+      pillars:
+        linux.sls:
+          linux:
+            system:
+              enabled: true
+              repo:
+                fluentbit:
+                  <% if %w(xenial trusty zesty).include? dist_version %>
+                  architectures: amd64
+                  key_url: "http://packages.fluentbit.io/fluentbit.key"
+                  source: "deb [arch=amd64] http://packages.fluentbit.io/ubuntu <%= dist_version %> main"
+                  clean_file: true
+                  <% else %>
+                  source: "http://packages.fluentbit.io/centos/7"
+                  gpgkey: "http://packages.fluentbit.io/fluentbit.key"
+                  gpgcheck: true
+                  <% end %>
 
 suites:
   - name: default
-  #  provisioner:
-  #    pillars-from-files:
-  #      fluentbit.sls: tests/pillar/default.sls
+    provisioner:
+      pillars-from-files:
+        fluentbit.sls: tests/pillar/default.sls
+
 # vim: ft=yaml sw=2 ts=2 sts=2 tw=125

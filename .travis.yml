@@ -3,7 +3,7 @@ services:
   - docker
 
 install:
-  - git fetch --unshallow --tags
+  - git fetch --unshallow --tags || git fetch
   - pip install PyYAML
   - pip install virtualenv
   - pip install reno
@@ -19,8 +19,8 @@ install:
   - bundle install
 
 env:
-    - PLATFORM=trevorj/salty-whales:trusty
     - PLATFORM=trevorj/salty-whales:xenial
+    - PLATFORM=corux/centos7-salt
 
 before_script:
   - set -o pipefail

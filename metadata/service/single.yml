@@ -1,0 +1,16 @@
+applications:
+- fluentbit
+classes:
+- service.fluentbit.support
+parameters:
+  fluentbit:
+    service:
+      flush: 5
+      daemon: 'on'
+      log_level: info
+    config:
+      service:
+        defaults.conf:
+          service: ${fluentbit:service}
+        td-agent-bit.conf:
+          - '@INCLUDE defaults.conf'

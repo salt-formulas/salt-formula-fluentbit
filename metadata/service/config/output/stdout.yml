@@ -1,0 +1,10 @@
+parameters:
+  fluentbit:
+    config:
+      output:
+        stdout.conf:
+          stdout:
+            match: '*'
+      service:
+        td-agent-bit.conf:
+          - '@INCLUDE output_stdout.conf'

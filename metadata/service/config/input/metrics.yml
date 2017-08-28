@@ -1,0 +1,14 @@
+parameters:
+  fluentbit:
+    config:
+      input:
+        metrics.conf:
+          cpu:
+            tag: system_metric_cpu
+          disk:
+            tag: system_metric_disk
+          mem:
+            tag: system_metric_mem
+      service:
+        td-agent-bit.conf:
+          - '@INCLUDE input_metrics.conf'
