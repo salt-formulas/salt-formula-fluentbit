@@ -2,7 +2,7 @@ parameters:
   _param:
     influx_service_address: 127.0.0.1
     influx_service_port: 8086
-    fluentbit_output_influx_match: 'system.metric**'
+    fluentbit_output_influx_match: 'system.metric.**'
   fluentbit:
     config:
       output:
