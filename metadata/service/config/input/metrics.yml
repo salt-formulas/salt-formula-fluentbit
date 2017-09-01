@@ -4,11 +4,11 @@ parameters:
       input:
         metrics.conf:
           cpu:
-            tag: system_metric_cpu
+            tag: system_metric.cpu
           disk:
-            tag: system_metric_disk
+            tag: system.metric.disk
           mem:
-            tag: system_metric_mem
+            tag: system.metric.mem
       service:
         td-agent-bit.conf:
           - '@INCLUDE input_metrics.conf'

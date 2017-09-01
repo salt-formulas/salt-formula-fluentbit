@@ -13,8 +13,8 @@ parameters:
             port: ${_param:elastic_service_port}
             match: ${_param:fluentbit_output_elastic_match}
             index: fluentbit
-            type: flb_type
-            logstash_format: True
+            type: fluentbit
+            logstash_format: False
             buffer_size: '4KB'
       service:
         td-agent-bit.conf:

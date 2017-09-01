@@ -5,13 +5,13 @@ parameters:
         system.conf:
           kmsg:
             filter: input
-            tag: system_log_kernel
+            tag: system.log.kernel
           syslog:
             filter: input
             chunk_size: 32
             buffer_size: 64
             path: /var/log/syslog
-            tag: system_log_syslog
+            tag: system.log.syslog
           systemd:
             filter: input
             tag: host.*

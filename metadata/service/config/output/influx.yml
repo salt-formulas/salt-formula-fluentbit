@@ -1,0 +1,19 @@
+parameters:
+  _param:
+    influx_service_address: 127.0.0.1
+    influx_service_port: 8086
+    fluentbit_output_influx_match: 'system.metrics**'
+  fluentbit:
+    config:
+      output:
+        # config name is choosed to be sorted before elastic/forward outputers
+        dbinflux.conf:
+        # http://fluentbit.io/documentation/current/output/influx.html
+          es:
+            host: ${_param:influx_service_address}
+            port: ${_param:influx_service_port}
+            match: ${_param:fluentbit_output_influx_match}
+            database: fluentbit
+      service:
+        td-agent-bit.conf:
+          - '@INCLUDE output_dbinflux.conf'
