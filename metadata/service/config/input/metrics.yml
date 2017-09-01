@@ -4,7 +4,7 @@ parameters:
       input:
         metrics.conf:
           cpu:
-            tag: system_metric.cpu
+            tag: system.metric.cpu
           disk:
             tag: system.metric.disk
           mem:
