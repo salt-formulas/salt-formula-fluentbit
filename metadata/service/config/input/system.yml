@@ -4,16 +4,13 @@ parameters:
       input:
         system.conf:
           kmsg:
-            filter: input
             tag: system.log.kernel
           syslog:
-            filter: input
             chunk_size: 32
             buffer_size: 64
             path: /var/log/syslog
             tag: system.log.syslog
           systemd:
-            filter: input
             tag: host.*
             systemd_filter:
               - _SYSTEM_UNIT=*.service

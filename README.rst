@@ -149,9 +149,11 @@ classes:
  - system.fluentbit.single
  # the above should load some of these available:
  - service.fluentbit.support
- - service.fluentbit.config.input.metrics
  - service.fluentbit.config.input.system
- - service.fluentbit.config.output.stdout
+ - service.fluentbit.config.input.metrics
+ - service.fluentbit.config.filter.stdout
+ - service.fluentbit.config.output.influx
+ - service.fluentbit.config.output.forward
 
 More information
 ================
