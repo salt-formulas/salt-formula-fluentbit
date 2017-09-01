@@ -1,0 +1,11 @@
+parameters:
+  fluentbit:
+    config:
+      filter:
+        debug.conf:
+          grep:
+            match: '*'
+            exclude: log DEBUG
+      service:
+        td-agent-bit.conf:
+          - '@INCLUDE filter_debug.conf'
