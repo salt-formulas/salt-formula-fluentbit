@@ -1,0 +1,21 @@
+parameters:
+  _param:
+    fluentd_service_address: 127.0.0.1
+    fluentd_service_port: 9200
+    fluentbit_output_elastic_match: '*'
+  fluentbit:
+    config:
+      output:
+        elastic.conf:
+        # http://fluentbit.io/documentation/current/output/elasticsearch.html
+          es:
+            host: ${_param:elastic_service_address}
+            port: ${_param:elastic_service_port}
+            match: ${_param:fluentbit_output_elastic_match}
+            index: fluentbit
+            type: flb_type
+            logstash_format: True
+            buffer_size: '4KB'
+      service:
+        td-agent-bit.conf:
+          - '@INCLUDE output_elastic.conf'
