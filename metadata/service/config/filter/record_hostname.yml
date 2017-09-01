@@ -1,0 +1,11 @@
+parameters:
+  fluentbit:
+    config:
+      filter:
+        record_hostname.conf:
+          record_modifier:
+            record: hostname ${linux:network:fqdn}
+            match: '*'
+      service:
+        td-agent-bit.conf:
+          - '@INCLUDE filter_record_hostname.conf'
