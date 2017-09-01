@@ -10,7 +10,7 @@ config:
       {%- for interface in grains.ip4_interfaces.keys() %}
       netif:
         interface: {{ interface }}
-        tag: system.metric.netif_{{ interface }}
+        tag: system.metric.netif.{{ interface }}
       {%- endfor %}
   # NOTE: merge of the lists below does not work.
   # Specify includes to main conf on pillar or in metadata/service/support.yml
