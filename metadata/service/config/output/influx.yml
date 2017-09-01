@@ -13,7 +13,7 @@ parameters:
             host: ${_param:influx_service_address}
             port: ${_param:influx_service_port}
             match: ${_param:fluentbit_output_influx_match}
-            database: fluentbit
+            database: _internal
       service:
         td-agent-bit.conf:
           - '@INCLUDE output_dbinflux.conf'
