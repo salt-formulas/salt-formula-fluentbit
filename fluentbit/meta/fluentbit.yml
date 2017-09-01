@@ -2,15 +2,15 @@ config:
   input:
     system_metrics.conf:
       cpu:
-        tag: system_metric_cpu
+        tag: system.metric.cpu
       disk:
-        tag: system_metric_disk
+        tag: system.metric.disk
       mem:
-        tag: system_metric_mem
+        tag: system.metric.mem
       {%- for interface in grains.ip4_interfaces.keys() %}
       netif:
         interface: {{ interface }}
-        tag: system_metric_netif_{{ interface }}
+        tag: system.metric.netif_{{ interface }}
       {%- endfor %}
   # NOTE: merge of the lists below does not work.
   # Specify includes to main conf on pillar or in metadata/service/support.yml
