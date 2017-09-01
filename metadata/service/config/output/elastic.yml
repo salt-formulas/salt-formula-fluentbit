@@ -15,6 +15,7 @@ parameters:
             index: fluentbit
             type: fluentbit
             logstash_format: False
+            include_tag_key: 'On'
             buffer_size: '4KB'
       service:
         td-agent-bit.conf:
