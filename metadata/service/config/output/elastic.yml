@@ -1,7 +1,7 @@
 parameters:
   _param:
-    fluentd_service_address: 127.0.0.1
-    fluentd_service_port: 9200
+    elastic_service_address: 127.0.0.1
+    elastic_service_port: 9200
     fluentbit_output_elastic_match: '*'
   fluentbit:
     config:
