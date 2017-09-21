@@ -1,0 +1,19 @@
+parameters:
+  fluentbit:
+    config:
+      parser:
+        pacemaker_log.conf:
+          name: pacemaker
+          format: regex
+          # https://regex101.com/r/6yzXO1/1
+          regex: '^\s*(?<time>[^ ]* {1,2}[^ ]* [^ ]*) \[(?<pid>\d+)\] (?<macid>[\-\w]*)\s*(?<component>\w*):\s+(?<severity>\w+):\s+(?<action>\w+):\s+(?<action_status>\w+) (?<mesage>[^\(]*) (\((?<meta>.*)\))$'
+          time_key: time
+          time_format:
+            # Sep 17 09:43:44
+            - %b %d %H:%M:%S
+          time_keep: On
+          types:
+            - 'pid:integer'
+      service:
+        td-agent-bit.conf:
+          - '@INCLUDE parser_pacemaker_log.conf'

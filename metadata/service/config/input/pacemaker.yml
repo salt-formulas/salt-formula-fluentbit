@@ -1,0 +1,19 @@
+parameters:
+  fluentbit:
+    config:
+      input:
+        pacemaker.conf:
+          tail:
+            parser: pacemaker
+            path: /var/log/pacemaker.log*
+            path_key: On
+            DB: /tmp/pacemaker.flb.db
+            exclude_path: '*.gz,*.xz'
+            multiline_flush: 4
+            multiline: On
+            chunk_size: 32k
+            buffer_max_size: 64k
+      service:
+        td-agent-bit.conf:
+          - '@INCLUDE input_pacemaker.conf'
+
