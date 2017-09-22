@@ -8,11 +8,11 @@ parameters:
           tail:
             parser: haproxy
             path: /var/log/haproxy.log*
-            path_key: On
+            path_key: path
             DB: /tmp/haproxy.flb.db
             exclude_path: '*.gz,*.xz'
             multiline_flush: 4
-            multiline: On
+            multiline: Off
             chunk_size: 32k
             buffer_max_size: 64k
             tag: haproxy

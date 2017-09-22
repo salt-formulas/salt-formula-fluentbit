@@ -8,11 +8,11 @@ parameters:
           tail:
             parser: pacemaker
             path: /var/log/pacemaker.log*
-            path_key: On
+            path_key: path
             DB: /tmp/pacemaker.flb.db
             exclude_path: '*.gz,*.xz'
             multiline_flush: 4
-            multiline: On
+            multiline: Off
             chunk_size: 32k
             buffer_max_size: 64k
             tag: pacemaker

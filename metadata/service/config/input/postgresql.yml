@@ -8,11 +8,11 @@ parameters:
           tail:
             parser: postgresql_statements
             path: /var/log/postgresql.log*
-            path_key: On
+            path_key: path
             DB: /tmp/postgresql.flb.db
             exclude_path: '*.gz,*.xz'
             multiline_flush: 4
-            multiline: On
+            multiline: Off
             chunk_size: 32k
             buffer_max_size: 64k
             tag: postgresql.statements
