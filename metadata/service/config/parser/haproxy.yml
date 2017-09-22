@@ -1,20 +1,22 @@
+
+
 parameters:
   fluentbit:
     config:
       parser:
-        haproxy_log.conf:
-          name: haproxy
-          format: regex
-          # https://regex101.com/r/ThV0ty/1/
-          regex: '^(?<time>[^ ][-:+0-9TZ]+|[[:upper:]][[:lower:]]{2}[ -:+0-9TZ]*)\s+(?<messages>.*)'
-          time_key: time
-          # http://www.cplusplus.com/reference/ctime/strftime/
-          time_format:
-            # Sep 17 09:43:44
-            - %b %d %H:%M:%S
-            # 2017-07-28T12:26:02+00:00
-            - %Y-%m-%dT%H:%M:%S+%z
-          time_keep: On
+        haproxy.conf:
+          haproxy:
+            format: regex
+            # https://regex101.com/r/ThV0ty/1/
+            regex: '^(?<time>[^ ][-:+0-9TZ]+|[[:upper:]][[:lower:]]{2}[ -:+0-9TZ]*)\s+(?<messages>.*)'
+            time_key: time
+            # http://www.cplusplus.com/reference/ctime/strftime/
+            time_format:
+              # Sep 17 09:43:44
+              - '%b %d %H:%M:%S'
+              # 2017-07-28T12:26:02+00:00
+              - '%Y-%m-%dT%H:%M:%S+%z'
+            time_keep: On
       service:
         td-agent-bit.conf:
-          - '@INCLUDE parser_haproxy_log.conf'
+          - '@INCLUDE parser_haproxy.conf'

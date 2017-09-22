@@ -1,7 +1,7 @@
 {# Load formula support meta on other formulas, <formula>/meta/fluentbit.yml #}
 {%- set _fluentbit_meta = {} %}
 {%- for service_name, service in pillar.items() %}
-  {%- if service.get('_support', {}).get('fluentbit', {}).get('enabled', False) %}
+  {%- if service.get('_support', False) is mapping and service.get('_support', {}).get('fluentbit', {}).get('enabled', False) %}
     {%- set fluentbit_fragment_file = service_name+'/meta/fluentbit.yml' %}
     {%- macro load_fluentbit_file() %}{% include fluentbit_fragment_file ignore missing %}{% endmacro %}
     {%- set fluentbit_meta_yaml = load_fluentbit_file()|load_yaml %}

@@ -1,3 +1,5 @@
+classes:
+- service.fluentbit.config.parser.postgresql_statements
 parameters:
   fluentbit:
     config:
@@ -13,6 +15,7 @@ parameters:
             multiline: On
             chunk_size: 32k
             buffer_max_size: 64k
+            tag: postgresql.statements
       service:
         td-agent-bit.conf:
           - '@INCLUDE input_postgresql_statements.conf'

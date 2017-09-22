@@ -3,11 +3,11 @@ parameters:
     config:
       parser:
         postgresql_statements.conf:
-          name: postgresql_statements
-          # https://regex101.com/r/sgk3sR/1
-          format: regex
-          regex: '^STATEMENT:\s*(?<statement>[^\n]*)(\nERROR:\s*(?<error>[^\n]*))(\nDETAIL:\s*(?<detail>[^\n]*))$'
-          time_keep: On
+          postgresql_statements:
+            # https://regex101.com/r/sgk3sR/1
+            format: regex
+            regex: '^STATEMENT:\s*(?<statement>[^\n]*)(\nERROR:\s*(?<error>[^\n]*))(\nDETAIL:\s*(?<detail>[^\n]*))$'
+            time_keep: On
       service:
         td-agent-bit.conf:
           - '@INCLUDE parser_postgresql_statements.conf'

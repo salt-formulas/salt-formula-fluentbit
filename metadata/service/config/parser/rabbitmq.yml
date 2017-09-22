@@ -2,20 +2,20 @@ parameters:
   fluentbit:
     config:
       parser:
-        rabbitmq_log.conf:
-          name: rabbitmq
-          format: regex
-          # https://regex101.com/r/QpRINz/4/
-          regex: '^=((?<component>[^ ]*(SUPERVISOR))|(?<severity>[^ ]*(INFO))).*\s+(?<time>[^ =]*)\s+[=]*\n(?<message>(?s)^(.*?)(?:(?:\r*\n){2}))'
-          time_key: time
-          time_format:
-            # 5-Jul-2017::14:10:58
-            - %d-%b-%Y::%H:%M:%S
-          time_keep: On
-          types:
-            - 'component:string'
-            - 'serverity:string'
-            - 'message:string'
+        rabbitmq.conf:
+          rabbitmq:
+            format: regex
+            # https://regex101.com/r/QpRINz/4/
+            regex: '^=((?<component>[^ ]*(SUPERVISOR))|(?<severity>[^ ]*(INFO))).*\s+(?<time>[^ =]*)\s+[=]*\n(?<message>(?s)^(.*?)(?:(?:\r*\n){2}))'
+            time_key: time
+            time_format:
+              # 5-Jul-2017::14:10:58
+              - '%d-%b-%Y::%H:%M:%S'
+            time_keep: On
+            types:
+              - 'component:string'
+              - 'serverity:string'
+              - 'message:string'
       service:
         td-agent-bit.conf:
-          - '@INCLUDE parser_rabbitmq_log.conf'
+          - '@INCLUDE parser_rabbitmq.conf'
