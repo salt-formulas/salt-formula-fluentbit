@@ -17,6 +17,6 @@ parameters:
               # 2017-07-28T12:26:02+00:00
               - '%Y-%m-%dT%H:%M:%S+%z'
             time_keep: On
-      service:
-        td-agent-bit.conf:
-          - '@INCLUDE parser_haproxy.conf'
+    service:
+      parsers_file:
+        - 'parser_haproxy.conf'

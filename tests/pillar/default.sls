@@ -9,7 +9,10 @@ fluentbit:
     flush: 10
     daemon: 'off'
     log_level: info
-    parsers_file: parser_custom.conf
+    parsers_file:
+      - parser_custom.conf
+      - parser_custom.conf
+      - parser_my.conf
   config:
     service:
       defaults.conf:

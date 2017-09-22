@@ -16,6 +16,6 @@ parameters:
               - 'component:string'
               - 'serverity:string'
               - 'message:string'
-      service:
-        td-agent-bit.conf:
-          - '@INCLUDE parser_rabbitmq.conf'
+    service:
+      parsers_file:
+        - 'parser_rabbitmq.conf

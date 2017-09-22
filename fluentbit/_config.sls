@@ -4,11 +4,7 @@
 {%- macro render_fluentbit_config(section) %}
 {%- for name,conf in fluentbit.config.get(section, {}).iteritems() %}
 {%- if conf is mapping %}
-# FIXME, Remove this deprecated feature
-# remove section template, if any
-# {%- set template = conf.get('template', name) %}
-# {%- do conf.update({'template': None}) %}
-# {%- do conf.pop('template') %}
+{%- set template = conf.get('template', name) %}
 {%- else %}
 # to allow support for non structured config input
 # process as raw text data
@@ -17,7 +13,7 @@
 {%- endif %}
 fluentbit_config_{{ section }}_{{name}}:
     file.managed:
-    - name: {{ fluentbit.config_dir }}/{% if section != 'service' %}{{ section }}_{% endif %}{{ name }}
+    - name: {{ fluentbit.config_dir }}/{% if name not in ['fluentbit.conf', 'td-agent-bit.conf', 'parsers.conf'] %}{{ section }}_{% endif %}{{ name }}
     - source:
       - salt://fluentbit/files/{{ template }}
       - salt://fluentbit/files/default.conf
