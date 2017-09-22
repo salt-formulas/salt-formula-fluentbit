@@ -18,4 +18,4 @@ parameters:
               - 'message:string'
     service:
       parsers_file:
-        - 'parser_rabbitmq.conf
+        - 'parser_rabbitmq.conf'
