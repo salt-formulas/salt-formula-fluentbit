@@ -13,4 +13,4 @@ parameters:
         defaults.conf:
           service: ${fluentbit:service}
         td-agent-bit.conf:
-          - '@INCLUDE defaults.conf'
+          - '@INCLUDE service_defaults.conf'
