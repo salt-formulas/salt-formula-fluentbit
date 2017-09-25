@@ -4,9 +4,9 @@ services:
 
 install:
   - git fetch --unshallow --tags || git fetch
-  - pip install PyYAML
-  - pip install virtualenv
-  - pip install reno
+  - pip install --user PyYAML
+  - pip install --user virtualenv
+  - pip install --user reno
   - |
     test -e Gemfile || cat <<EOF > Gemfile
     source 'https://rubygems.org'
