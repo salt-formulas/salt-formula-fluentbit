@@ -8,15 +8,10 @@ parameters:
           haproxy:
             format: regex
             # https://regex101.com/r/ThV0ty/1/
-            regex: '^(?<time>[^ ][-:+0-9TZ]+|[[:upper:]][[:lower:]]{2}[ -:+0-9TZ]*)\s+(?<messages>.*)'
+            regex: '^(?<time>[^ +][-:0-9TZ]+|[[:upper:]][[:lower:]]{2}[ -:+0-9TZ]*)([^ ][+0:]+|\s+)(\s*)(?<soruce>[^ ][-\w]+)(\s*)(?<service>[^ ][-\[\]\d\w]+):\s+(?<message>[^ ].*)$'
             time_key: time
             # http://www.cplusplus.com/reference/ctime/strftime/
-            time_format: '%b %d %H:%M:%S'
-              # Sep 17 09:43:44
-              # 2017-07-28T12:26:02+00:00
-              #- '%Y-%m-%dT%H:%M:%S+00:00'
-              #- '%Y-%m-%dT%H:%M:%S+%z'
-              #- '%Y-%m-%dT%H:%M:%S'
+            time_format: '%Y-%m-%dT%H:%M:%S'
             time_keep: 'On'
     service:
       parsers_file:
