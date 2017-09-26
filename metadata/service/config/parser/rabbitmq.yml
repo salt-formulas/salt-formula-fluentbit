@@ -8,10 +8,9 @@ parameters:
             # https://regex101.com/r/QpRINz/4/
             regex: '^=((?<component>[^ ]*(SUPERVISOR))|(?<severity>[^ ]*(INFO))).*\s+(?<time>[^ =]*)\s+[=]*\n(?<message>(?s)^(.*?)(?:(?:\r*\n){2}))'
             time_key: time
-            time_format:
+            time_format: '%d-%b-%Y::%H:%M:%S'
               # 5-Jul-2017::14:10:58
-              - '%d-%b-%Y::%H:%M:%S'
-            time_keep: On
+            time_keep: 'On'
             types:
               - 'component:string'
               - 'serverity:string'
