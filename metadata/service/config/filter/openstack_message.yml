@@ -1,0 +1,16 @@
+classes:
+- service.fluentbit.config
+- service.fluentbit.config.parser.http_statement
+
+parameters:
+  fluentbit:
+    config:
+      filter:
+        openstack_message.conf:
+          parser:
+            match: 'openstack.**'
+            key_name: message
+            parser: http_statement
+      service:
+        td-agent-bit.conf:
+          - '@INCLUDE filter_openstack_message.conf'

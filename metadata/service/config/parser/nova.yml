@@ -1,0 +1,25 @@
+classes:
+- service.fluentbit.config
+
+parameters:
+  fluentbit:
+    config:
+      parser:
+        nova.conf:
+          nova-api:
+            format: regex
+            # https://regex101.com/r/TBD...
+            regex: ''
+            time_key: time
+            time_format: ${_param:fluentbit_config_timeformat}
+            time_keep: 'On'
+          nova-conductor:
+            format: regex
+            # https://regex101.com/r/TBD...
+            regex: ''
+            time_key: time
+            time_format: ${_param:fluentbit_config_timeformat}
+            time_keep: 'On'
+    service:
+      parsers_file:
+        - 'parser_nova.conf'
