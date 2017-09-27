@@ -9,7 +9,7 @@ parameters:
           rabbitmq:
             format: regex
             # https://regex101.com/r/QpRINz
-            regex: '^=((?<component>[^ ]*(SUPERVISOR))|(?<severity>[^ ]*(INFO))).*\s+(?<time>[^ =]*)\s+[=]*\n(?<message>(?s)^(.*?)(?:(?:\r*\n){2}))'
+            regex: '^=((?<component>[^ ]*(SUPERVISOR))|(?<severity>[^ ]*(INFO))).*\s+(?<time>[^ =]*)\s+[=]*\n(?<message>(?s)^(.*?)(?:(?:\r*\n){2}))$'
             time_key: time
             time_format: ${_param:fluentbit_config_timeformat}
             time_keep: 'On'
