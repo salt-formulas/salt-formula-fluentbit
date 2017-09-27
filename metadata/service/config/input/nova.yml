@@ -18,7 +18,7 @@ parameters:
           nova-api:
             name: tail
             parser: nova-api
-            path: ${_param:fluentbit_config_syslogpath}/nova-api.log*
+            path: ${_param:fluentbit_config_syslogpath}/nova/nova-api.log*
             path_key: path
             DB: /tmp/nova-api.flb.db
             exclude_path: '*.gz,*.xz'
@@ -30,7 +30,7 @@ parameters:
           nova-conductor:
             name: tail
             parser: nova-conductor
-            path: ${_param:fluentbit_config_syslogpath}/nova-conductor.log*
+            path: ${_param:fluentbit_config_syslogpath}/nova/nova-conductor.log*
             path_key: path
             DB: /tmp/nova-conductor.flb.db
             exclude_path: '*.gz,*.xz'
