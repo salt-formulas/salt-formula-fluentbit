@@ -5,7 +5,7 @@ parameters:
   fluentbit:
     config:
       parser:
-        haproxy.conf:
+        http_statement.conf:
           http_statement:
             format: regex
             # https://regex101.com/r/D81FaK
