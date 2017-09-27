@@ -1,7 +1,7 @@
 
 parameters:
   _param:
-    fluentbit_config_timeformat: '%d-%b-%Y:%H:%M:%S'
+    fluentbit_config_timeformat: '%Y-%m-%dT%H:%M:%S'
     # http://www.cplusplus.com/reference/ctime/strftime/
     # Other common options:      '%d %b %H:%M:%S'
     fluentbit_config_syslogpath: /var/log
