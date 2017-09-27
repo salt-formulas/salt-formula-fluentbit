@@ -1,5 +1,7 @@
 classes:
+- service.fluentbit.config
 - service.fluentbit.config.parser.haproxy
+
 parameters:
   fluentbit:
     config:
@@ -7,7 +9,7 @@ parameters:
         haproxy.conf:
           tail:
             parser: haproxy
-            path: /var/log/haproxy.log*
+            path: ${_param:fluentbit_config_syslogpath}/haproxy.log*
             path_key: path
             DB: /tmp/haproxy.flb.db
             exclude_path: '*.gz,*.xz'

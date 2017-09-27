@@ -1,3 +1,6 @@
+classes:
+- service.fluentbit.config
+
 parameters:
   fluentbit:
     config:
@@ -8,7 +11,7 @@ parameters:
           syslog:
             chunk_size: 32
             buffer_size: 64
-            path: /var/log/syslog
+            path: ${_param:fluentbit_config_syslogpath}/syslog
             tag: system.log.syslog
           systemd:
             tag: host.*

@@ -1,4 +1,5 @@
-
+classes:
+- service.fluentbit.config
 
 parameters:
   fluentbit:
@@ -7,11 +8,10 @@ parameters:
         haproxy.conf:
           haproxy:
             format: regex
-            # https://regex101.com/r/ThV0ty/1/
-            regex: '^(?<time>[^ +][-:0-9TZ]+|[[:upper:]][[:lower:]]{2}[ -:+0-9TZ]*)([^ ][+0:]+|\s+)(\s*)(?<soruce>[^ ][-\w]+)(\s*)(?<service>[^ ][-\[\]\d\w]+):\s+(?<message>[^ ].*)$'
+            # https://regex101.com/r/ThV0ty
+            regex: '^(?<time>[^ +][-:0-9TZ]+|[[:upper:]][[:lower:]]{2}[ -:+0-9TZ]*)([^ ][+0:]+|\s+)(\s*)(?<host>[^ ][-\w]+)(\s*)(?<service>[^ ][-\[\]\d\w]+):\s+(?<message>[^ ].*)$'
             time_key: time
-            # http://www.cplusplus.com/reference/ctime/strftime/
-            time_format: '%Y-%m-%dT%H:%M:%S'
+            time_format: ${_param:fluentbit_config_timeformat}
             time_keep: 'On'
     service:
       parsers_file:

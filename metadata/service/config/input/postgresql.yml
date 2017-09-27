@@ -1,5 +1,7 @@
 classes:
+- service.fluentbit.config
 - service.fluentbit.config.parser.postgresql_statements
+
 parameters:
   fluentbit:
     config:
@@ -7,7 +9,7 @@ parameters:
         postgresql_statements.conf:
           tail:
             parser: postgresql_statements
-            path: /var/log/postgresql.log*
+            path: ${_param:fluentbit_config_syslogpath}/postgresql.log*
             path_key: path
             DB: /tmp/postgresql.flb.db
             exclude_path: '*.gz,*.xz'

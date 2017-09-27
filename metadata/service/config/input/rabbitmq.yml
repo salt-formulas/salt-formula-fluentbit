@@ -1,5 +1,7 @@
 classes:
+- service.fluentbit.config
 - service.fluentbit.config.parser.rabbitmq
+
 parameters:
   fluentbit:
     config:
@@ -7,7 +9,7 @@ parameters:
         rabbitmq.conf:
           tail:
             parser: rabbitmq
-            path: /var/log/rabbitmq/rabbitmq*
+            path: ${_param:fluentbit_config_syslogpath}/rabbitmq/rabbitmq*
             path_key: path
             DB: /tmp/rabbitmq.flb.db
             exclude_path: '*.gz,*.xz'

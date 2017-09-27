@@ -1,5 +1,7 @@
 classes:
+- service.fluentbit.config
 - service.fluentbit.config.parser.pacemaker
+
 parameters:
   fluentbit:
     config:
@@ -7,7 +9,7 @@ parameters:
         pacemaker.conf:
           tail:
             parser: pacemaker
-            path: /var/log/pacemaker.log*
+            path: ${_param:fluentbit_config_syslogpath}/pacemaker.log*
             path_key: path
             DB: /tmp/pacemaker.flb.db
             exclude_path: '*.gz,*.xz'

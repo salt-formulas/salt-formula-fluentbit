@@ -1,10 +1,13 @@
+classes:
+- service.fluentbit.config
+
 parameters:
   fluentbit:
     config:
       parser:
         postgresql_statements.conf:
           postgresql_statements:
-            # https://regex101.com/r/sgk3sR/1
+            # https://regex101.com/r/sgk3sR
             format: regex
             regex: '^STATEMENT:\s*(?<statement>[^\n]*)(\nERROR:\s*(?<error>[^\n]*))(\nDETAIL:\s*(?<detail>[^\n]*))$'
             time_keep: 'On'

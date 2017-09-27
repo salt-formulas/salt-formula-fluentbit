@@ -1,3 +1,6 @@
+classes:
+- service.fluentbit.config
+
 parameters:
   fluentbit:
     config:
@@ -5,11 +8,10 @@ parameters:
         pacemaker.conf:
           pacemaker:
             format: regex
-            # https://regex101.com/r/6yzXO1/1
+            # https://regex101.com/r/6yzXO1
             regex: '^\s*(?<time>[^ ]* {1,2}[^ ]* [^ ]*) \[(?<pid>\d+)\] (?<macid>[\-\w]*)\s*(?<component>\w*):\s+(?<severity>\w+):\s+(?<action>\w+):\s+(?<action_status>\w+) (?<mesage>[^\(]*) (\((?<meta>.*)\))$'
             time_key: time
-            time_format: '%b %d %H:%M:%S'
-              # Sep 17 09:43:44
+            time_format: ${_param:fluentbit_config_timeformat}
             time_keep: 'On'
             types:
               - 'pid:integer'
