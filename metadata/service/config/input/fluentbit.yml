@@ -1,0 +1,17 @@
+classes:
+- service.fluentbit.config
+- service.fluentbit.config.parser.fluentbit
+
+parameters:
+  fluentbit:
+    config:
+      input:
+        fluentbit.conf:
+          systemd:
+            tag: host.*
+            systemd_filter:
+              - _SYSTEM_UNIT=td-agent-bit.service
+      service:
+        td-agent-bit.conf:
+          - '@INCLUDE input_fluentbit.conf'
+
