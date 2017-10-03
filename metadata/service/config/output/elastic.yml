@@ -14,7 +14,7 @@ parameters:
             match: ${_param:fluentbit_output_elastic_match}
             index: fluentbit
             type: flb_type
-            tag_key: tag
+            tag_key: _tag
             include_tag_key: 'On'
             buffer_size: '4KB'
             retry_limit: False
