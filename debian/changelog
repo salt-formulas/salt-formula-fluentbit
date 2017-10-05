@@ -2,4 +2,4 @@ salt-formula-fluentbit (2017.8) trusty; urgency=medium
 
   * Initial release
 
- -- Petr Michalec pmichalec@mirantis.com  Tue, 22 Aug 2017 01:24:34 BST
+ -- Petr Michalec <pmichalec@mirantis.com>  Tue, 22 Aug 2017 01:24:34 +0200
