@@ -8,14 +8,18 @@ parameters:
       input:
         rabbitmq.conf:
           tail:
-            parser: rabbitmq
+            #multiline: 'Off'
+            #parser: rabbitmq
+            multiline: 'On'
+            parser_firstline: rabbitmq_f
+            parser_1: rabbitmq_1
+            ##
             path: ${_param:fluentbit_config_syslogpath}/rabbitmq/rabbit*
             path_key: path
             DB: /tmp/rabbitmq.flb.db
             exclude_path: '*.gz,*.xz'
             multiline_flush: 4
-            multiline: Off
-            chunk_size: 32k
+            buffer_chunk_size: 4k
             buffer_max_size: 64k
             tag: rabbitmq
       service:

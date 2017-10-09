@@ -8,14 +8,28 @@ parameters:
         rabbitmq.conf:
           rabbitmq:
             format: regex
-            # https://regex101.com/r/zGYU05/2
-            regex: '^=(?<severity>[^ ].*)\s+REPORT[=\s]*(?<time>[^ =]*)\s*[=]*\n(?<message>(?s)^(.*?)(?:(?:\r*\n){2}))'
+            # https://regex101.com/r/
+            regex: '^=(?<severity>[^ ]\w+)\s+REPORT[=\s]*(?<time>[^ =]*)\s*[=]*\n(?<message>.*?(?=\R\R|\z))'
             time_key: time
             time_format: ${_param:fluentbit_config_timeformat}
             time_keep: 'On'
             types:
-              - 'component:string'
               - 'serverity:string'
+              - 'message:string'
+          rabbitmq_f:
+            format: regex
+            # https://regex101.com/r/
+            # http://rubular.com/r/eX8UjwGLEI
+            regex: '^=(?<severity>[^ ]\w+)\s+REPORT[=\s]*(?<time>[^ =][-:.\d\w]+)[\s=]+$'
+            time_key: time
+            time_format: ${_param:fluentbit_config_timeformat}
+            time_keep: 'On'
+            types:
+              - 'serverity:string'
+          rabbitmq_1:
+            format: regex
+            regex: '^(?<message>.*?(?=\R\R|\z))$'
+            types:
               - 'message:string'
     service:
       parsers_file:
