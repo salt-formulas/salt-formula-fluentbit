@@ -15,6 +15,9 @@ parameters:
             tag: system.log.syslog
           systemd:
             tag: host.*
+            path: /var/log/journal
+            db: /var/lib/fluentbit
+            max_entries: 500
             systemd_filter:
               - _SYSTEM_UNIT=*.service
               - _SYSTEM_UNIT=*.network

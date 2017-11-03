@@ -8,8 +8,9 @@ parameters:
         http.conf:
           http_statement:
             format: regex
+            # http://rubular.com/r/OrDukYltNC
             # https://regex101.com/r/D81FaK
-            regex: '^.*((?<req_method>GET|POST|PUT|DELETE|CONNECT|OPTIONS|HEAD[^ ]\w+)\s*(?<req_path>[^ ][-._?=%&\/[:alnum:]]*)\s*(?<req_protocol>[^ ][.\/\dHTFSP]+){0,1})|(\s*(status:\s*(?<req_status>[^ ]\d+))\s*(len:\ (?<req_len>[^ ]\d+)){0,1}\s*(time:\s*(?<req_time>[^ ][.\d]+)){0,1}\s*(microversion:\s*(?<req_mver>[^ ][.\d]+)){0,1}){0,1}$'
+            regex: '^.*((?<req_method>GET|POST|PUT|DELETE|CONNECT|OPTIONS|HEAD[^ ]\w+)\s*(?<req_path>[^ ][-._?=%&\/[:alnum:]]*)\s*(?<req_protocol>[^ ][.\/\dHTFSP]+){0,1})(['"\s]*){0,1}((\s*status:\s*(?<req_status>[^ ]\d+)){0,1}(\s*len:\ (?<req_len>[^ ]\d+)){0,1}(\s*time:\s*(?<req_time>[^ ][.\d]+)){0,1}(\s*microversion:\s*(?<req_mver>[^ ][.\d]+)){0,1}){0,1}$'
 
     service:
       parsers_file:

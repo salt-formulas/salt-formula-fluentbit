@@ -8,15 +8,15 @@ parameters:
         nova.conf:
           nova-api:
             format: regex
-            # https://regex101.com/r/NYogHF/1/
-            regex: '^(?P<time>[^ ][-\d:]*\ [.\d:]*)\s+(?P<pid>[^ ]\d+)\s+(?P<severity>[^ ]\w+)\s+(?P<component>[^ ][.-_\w]+)\s+(\[((?<req>[^ ][-\w]+)){0,1}(\s+(?<res>[^ ][-\w]+)){0,1}(\s+(?<res2>[^ ][-\w]+)){0,1}[- ]*\]){0,1}\s+(?<from>[^ ][,.\d]*)\s+\"(?<message>.*)$'
+            # http://rubular.com/r/7zgjN93NLS
+            # http://regex101.com/r/NYogHF/1/
+            regex: '^(?<time>[^ ][-.\d\+:T]+[ ]*[.:\d]*)\s+(?<pid>[^ ]\d+)\s+(?<severity>[^ ][.-_\w]+)\s+(?<component>[^ ][.-_\w]+)(\s+\[(-|(?<req_id>[^ ][-\w]*) (?<req_user>[^ ][-\w]*) (?<req_project>[^ ][-\w]*) (?<req_domain>[^ ][-\w]*) (?<req_user_domain>[^ ][-\w]*) (?<req_project_domain>[^ ][-\w]*))\]){0,1}\s+(?<message>.*)$'
             time_key: time
             time_format: ${_param:fluentbit_config_timeformat}
             time_keep: 'On'
           nova-conductor:
             format: regex
-            # https://regex101.com/r/N76dUJ/1/
-            regex: '^(?P<time>[^ ][-\d:]*\ [.\d:]*)\s+(?P<pid>[^ ]\d+)\s+(?P<severity>[^ ]\w+)\s+(?P<component>[^ ][.-_\w]+)\s+(\[((?<req>[^ ][-\w]+)){0,1}(\s+(?<res>[^ ][-\w]+)){0,1}(\s+(?<res2>[^ ][-\w]+)){0,1}[- ]*\]){0,1}(?<message>.*)$'
+            regex: '^(?<time>[^ ][-.\d\+:T]+[ ]*[.:\d]*)\s+(?<pid>[^ ]\d+)\s+(?<severity>[^ ][.-_\w]+)\s+(?<component>[^ ][.-_\w]+)(\s+\[(-|(?<req_id>[^ ][-\w]*) (?<req_user>[^ ][-\w]*) (?<req_project>[^ ][-\w]*) (?<req_domain>[^ ][-\w]*) (?<req_user_domain>[^ ][-\w]*) (?<req_project_domain>[^ ][-\w]*))\]){0,1}\s+(?<message>.*)$'
             time_key: time
             time_format: ${_param:fluentbit_config_timeformat}
             time_keep: 'On'
