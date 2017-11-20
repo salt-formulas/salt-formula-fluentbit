@@ -9,10 +9,10 @@ parameters:
           fluentbit:
             format: regex
             # https://regex101.com/r/HV8Ce6/2
-            regex: '^(?<time>[^ +][-:0-9TZ]+|[[:upper:]][[:lower:]]{2}[ -:+0-9TZ]*)([^ ][+0:]+|\s+)(\s*)(?<host>[^ ][-\w\d]+)(\s*)(?<service>[^ [][-_\w]+)(\[(?<pid>[^ \]][\d]*)\]):\s*((\[\s*(?<mtime>[^ ][\w: \/]+)\]\s*\[\s*(?<severity>[^ ][[:alpha:]]+)\]\s*){0,1}\s*\[\s*(?<component>[^ ][-_[:alpha:]]+[[:alnum:]:]+)\]){0,1}\s*(?<message>.*){0,1}$'
-            time_key: time
+            regex: '^(?<log_time>[^ +][-:0-9TZ]+|[[:upper:]][[:lower:]]{2}[ -:+0-9TZ]*)([^ ][+0:]+|\s+)(\s*)(?<host>[^ ][-\w\d]+)(\s*)(?<service>[^ [][-_\w]+)(\[(?<pid>[^ \]][\d]*)\]):\s*((\[\s*(?<mtime>[^ ][\w: \/]+)\]\s*\[\s*(?<severity>[^ ][[:alpha:]]+)\]\s*){0,1}\s*\[\s*(?<component>[^ ][-_[:alpha:]]+[[:alnum:]:]+)\]){0,1}\s*(?<message>.*){0,1}$'
+            time_key: log_time
             time_format: ${_param:fluentbit_config_timeformat}
-            time_keep: 'On'
+            time_keep: 'Off'
     service:
       parsers_file:
         - 'parser_fluentbit.conf'

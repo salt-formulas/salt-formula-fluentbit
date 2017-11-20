@@ -8,20 +8,16 @@ parameters:
       input:
         postgresql.conf:
           tail:
-            #multiline: 'Off'
-            #parser: postgresql_statements
             multiline: 'On'
             parser_firstline: postgresql_statement_s
-            parser_2: postgresql_statement_e
-            parser_3: postgresql_statement_d
             ##
             path: ${_param:fluentbit_config_syslogpath}/postgresql.log*
             path_key: path
-            DB: /tmp/postgresql.flb.db
+            DB: /var/lib/fluentbit/postgresql.flb.db
             exclude_path: '*.gz,*.xz'
-            multiline_flush: 4
-            buffer_chunk_size: 4k
-            buffer_max_size: 64k
+            #multiline_flush: 4
+            buffer_chunk_size: 32k
+            buffer_max_size: 512k
             tag: postgresql.statements
       service:
         td-agent-bit.conf:

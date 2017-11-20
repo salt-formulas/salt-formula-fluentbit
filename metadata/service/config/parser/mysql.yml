@@ -1,0 +1,22 @@
+classes:
+- service.fluentbit.config
+
+parameters:
+  fluentbit:
+    config:
+      parser:
+        mysql.conf:
+          mysql_error:
+            # http://rubular.com/r/7KlfSJdpuZ
+            format: regex
+            time_key: log_time
+            time_keep: 'Off'
+            time_format: ${_param:fluentbit_config_timeformat}
+            regex: '^(?<log_time>[^ +][ -:0-9TZ]+|[[:upper:]][[:lower:]]{2}[ -:+0-9TZ]*)\s+(?<myid>[^ ]\d+)\s+\[(?<mtype>[^ ]\w+)\](\s+(?<subsystem>[^ ]\w+):){0,1}\s+(?<message>.*)$'
+          mysql_slow:
+            # http://rubular.com/r/3eDKwDJwAl
+            format: regex
+            regex: '^(?<message>\/.*?(\R\R?|\z).*(\R\R?|\z).*)$'
+    service:
+      parsers_file:
+        - 'parser_mysql.conf'

@@ -11,11 +11,11 @@ parameters:
             # http://rubular.com/r/1V8dgPJsZd
             format: regex
             regex: '^STATEMENT:\s*(?<statement>[^$].*?)(\nERROR:\s*(?<error>[^$].*?))(\nDETAIL:\s*(?<detail>[^$].*?))$'
-            time_keep: 'On'
+            time_keep: 'Off'
           postgresql_statement_s:
             format: regex
             regex: '^STATEMENT:\s*(?<statement>[^$].*?)$'
-            time_keep: 'On'
+            time_keep: 'Off'
           postgresql_statement_e:
             format: regex
             regex: '^ERROR:\s*(?<error>[^$].*?)$'

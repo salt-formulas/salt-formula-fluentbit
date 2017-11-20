@@ -5,15 +5,13 @@ parameters:
   fluentbit:
     config:
       parser:
-        nova.conf:
-          nova:
+        glance.conf:
+          glance:
             format: regex
-            # http://rubular.com/r/7zgjN93NLS
-            # http://regex101.com/r/NYogHF/1/
             regex: '^(?<log_time>[^ ][-.\d\+:T]+[ ]*[.:\d]*)\s+(?<pid>[^ ]\d+)\s+(?<severity>[^ ][.-_\w]+)\s+(?<component>[^ ][.-_\w]+)(\s+\[(-|(?<req_id>[^ ][-\w]*) (?<req_user>[^ ][-\w]*) (?<req_project>[^ ][-\w]*) (?<req_domain>[^ ][-\w]*) (?<req_user_domain>[^ ][-\w]*) (?<req_project_domain>[^ ][-\w]*))\]){1}\s+(?<message>.*)$'
             time_key: log_time
             time_format: ${_param:fluentbit_config_timeformat}
             time_keep: 'Off'
     service:
       parsers_file:
-        - 'parser_nova.conf'
+        - 'parser_glance.conf'

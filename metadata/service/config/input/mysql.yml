@@ -1,0 +1,42 @@
+classes:
+- service.fluentbit.config
+- service.fluentbit.config.parser.mysql
+
+parameters:
+  _param:
+    fluentbit_config_input_mysql_path: /var/log/mysql
+  fluentbit:
+    config:
+      input:
+        mysql.conf:
+          mysql_error:
+            name: tail
+            multiline: 'On'
+            parser_firstline: mysql_error
+            parser_1: mysql_error_1
+            ##
+            path: ${_param:fluentbit_config_input_mysql_path}/mysql_error.log*
+            path_key: path
+            DB: /var/lib/fluentbit/mysql.flb.db
+            exclude_path: '*.gz,*.xz,*.bz2'
+            multiline_flush: 10
+            buffer_chunk_size: 128k
+            buffer_max_size: 1M
+            tag: mysql.error
+          mysql_slow:
+            name: tail
+            multiline: 'Off'
+            parser: mysql_slow
+            ##
+            path: ${_param:fluentbit_config_input_mysql_path}/mysql_slow.log*
+            path_key: path
+            DB: /var/lib/fluentbit/mysql.flb.db
+            exclude_path: '*.gz,*.xz,*.bz2'
+            multiline_flush: 10
+            buffer_chunk_size: 128k
+            buffer_max_size: 1M
+            tag: mysql.slow
+      service:
+        td-agent-bit.conf:
+          - '@INCLUDE input_mysql.conf'
+

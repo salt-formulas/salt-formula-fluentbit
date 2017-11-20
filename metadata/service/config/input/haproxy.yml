@@ -11,12 +11,12 @@ parameters:
             parser: haproxy
             path: ${_param:fluentbit_config_syslogpath}/haproxy.log*
             path_key: path
-            DB: /tmp/haproxy.flb.db
+            DB: /var/lib/fluentbit/haproxy.flb.db
             exclude_path: '*.gz,*.xz'
-            multiline_flush: 4
+            #multiline_flush: 4
             multiline: Off
             chunk_size: 32k
-            buffer_max_size: 64k
+            buffer_max_size: 512k
             tag: haproxy
       service:
         td-agent-bit.conf:

@@ -5,8 +5,8 @@ parameters:
   fluentbit:
     config:
       parser:
-        nova.conf:
-          nova:
+        neutron.conf:
+          neutron:
             format: regex
             # http://rubular.com/r/7zgjN93NLS
             # http://regex101.com/r/NYogHF/1/
@@ -16,4 +16,4 @@ parameters:
             time_keep: 'Off'
     service:
       parsers_file:
-        - 'parser_nova.conf'
+        - 'parser_neutron.conf'
