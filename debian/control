@@ -10,6 +10,6 @@ Vcs-Git: https://github.com/salt-formulas/salt-formula-fluentbit.git
 
 Package: salt-formula-fluentbit
 Architecture: all
-Depends: ${misc:Depends}, salt-master, reclass
+Depends: ${misc:Depends}
 Description: fluentbit salt formula
  Install and configure fluentbit system.
