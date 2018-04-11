@@ -37,17 +37,17 @@ verifier:
   sudo: true
 
 <% platform = ENV['PLATFORM'] || 'xenial' %>
-<% dist_version = platform.split(/:|-/)[-1] %>
+<% dist_version = platform.split(/:|-/)[2] %>
 platforms:
-  <% if %w(xenial trusty zesty).include? dist_version %>
-  - name: <%= ENV['PLATFORM'] || 'ubuntu-xenial' %>
+  <% if %w(ubuntu).include? dist_version %>
+  - name: <%= ENV['PLATFORM'] || 'saltstack-ubuntu-xenial-salt-stable' %>
     driver_config:
-      image: <%= ENV['PLATFORM'] || 'trevorj/salty-whales:xenial'%>
+      image: <%= ENV['PLATFORM'] || 'epcim/salt:saltstack-ubuntu-xenial-salt-stable'%>
       platform: ubuntu
   <% else %>
-  - name: <%= ENV['PLATFORM'] || 'centos-7' %>
+  - name: <%= ENV['PLATFORM'] || 'saltstack-centos-7-salt-stable' %>
     driver_config:
-      image: <%= ENV['PLATFORM'] || 'corux/centos7-salt:latest'%>
+      image: <%= ENV['PLATFORM'] || 'epcim/salt:saltstack-centos-7-salt-stable'%>
       platform: centos
       privileged: True
       run_command: /usr/sbin/init
@@ -62,10 +62,10 @@ platforms:
               enabled: true
               repo:
                 fluentbit:
-                  <% if %w(xenial trusty zesty).include? dist_version %>
+                  <% if %w(ubuntu).include? dist_version %>
                   architectures: amd64
                   key_url: "http://packages.fluentbit.io/fluentbit.key"
-                  source: "deb [arch=amd64] http://packages.fluentbit.io/ubuntu <%= dist_version %> main"
+                  source: "deb [arch=amd64] http://packages.fluentbit.io/ubuntu <%= platform.split(/:|-/)[3]%> main"
                   clean_file: true
                   <% else %>
                   source: "http://packages.fluentbit.io/centos/7"
