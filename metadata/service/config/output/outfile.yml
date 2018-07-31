@@ -1,0 +1,15 @@
+parameters:
+  _param:
+    fluentbit_output_outfile_match: '*'
+    fluentbit_output_outfile_path: '/tmp/fluentbit_outfile.json'
+  fluentbit:
+    config:
+      output:
+        outfile.conf:
+          outfile:
+            match: '${_param:fluentbit_output_outfile_match}'
+            path: ${_param:fluentbit_output_outfile_path}
+            format: out_file
+      service:
+        td-agent-bit.conf:
+          - '@INCLUDE output_outfile.conf'

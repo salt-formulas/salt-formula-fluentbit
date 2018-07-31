@@ -14,6 +14,7 @@ parameters:
             port: ${_param:influx_service_port}
             match: ${_param:fluentbit_output_influx_match}
             database: _internal
+            sequence_tag: seq
       service:
         td-agent-bit.conf:
           - '@INCLUDE output_dbinflux.conf'

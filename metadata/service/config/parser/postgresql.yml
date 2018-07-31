@@ -1,0 +1,27 @@
+classes:
+- service.fluentbit.config
+
+parameters:
+  fluentbit:
+    config:
+      parser:
+        postgresql.conf:
+          postgresql_statement:
+            # https://regex101.com/r/sgk3sR
+            # http://rubular.com/r/1V8dgPJsZd
+            format: regex
+            regex: '^STATEMENT:\s*(?<statement>[^$].*?)(\nERROR:\s*(?<error>[^$].*?))(\nDETAIL:\s*(?<detail>[^$].*?))$'
+            time_keep: 'Off'
+          postgresql_statement_s:
+            format: regex
+            regex: '^STATEMENT:\s*(?<statement>[^$].*?)$'
+            time_keep: 'Off'
+          postgresql_statement_e:
+            format: regex
+            regex: '^ERROR:\s*(?<error>[^$].*?)$'
+          postgresql_statement_d:
+            format: regex
+            regex: '^DETAIL:\s*(?<detail>[^$].*?)$'
+    service:
+      parsers_file:
+        - 'parser_postgresql.conf'

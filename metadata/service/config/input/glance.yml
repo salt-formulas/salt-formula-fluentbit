@@ -1,0 +1,25 @@
+classes:
+- service.fluentbit.config
+- service.fluentbit.config.parser.glance
+
+parameters:
+  fluentbit:
+    config:
+      input:
+        glance.conf:
+          glance:
+            name: tail
+            parser: glance
+            path: ${_param:fluentbit_config_syslogpath}/glance/glance*.log*
+            path_key: path
+            DB: /var/lib/fluentbit/glance.flb.db
+            exclude_path: '*.gz,*.xz'
+            #multiline_flush: 4
+            multiline: On
+            chunk_size: 32k
+            buffer_max_size: 1M
+            tag: openstack.glance
+      service:
+        td-agent-bit.conf:
+          - '@INCLUDE input_glance.conf'
+

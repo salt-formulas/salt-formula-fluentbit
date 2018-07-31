@@ -1,0 +1,25 @@
+classes:
+- service.fluentbit.config
+- service.fluentbit.config.parser.keystone
+
+parameters:
+  fluentbit:
+    config:
+      input:
+        keystone.conf:
+          keystone:
+            name: tail
+            parser: keystone
+            path: ${_param:fluentbit_config_syslogpath}/keystone/keystone*.log*
+            path_key: path
+            DB: /var/lib/fluentbit/keystone.flb.db
+            exclude_path: '*.gz,*.xz'
+            #multiline_flush: 4
+            multiline: On
+            chunk_size: 32k
+            buffer_max_size: 1M
+            tag: openstack.keystone
+      service:
+        td-agent-bit.conf:
+          - '@INCLUDE input_keystone.conf'
+

@@ -16,7 +16,7 @@ parameters:
             type: flb_type
             tag_key: _tag
             include_tag_key: 'On'
-            buffer_size: '4KB'
+            buffer_size: '32KB'
             retry_limit: False
             # BELOW WHEN LOGSTASH FORMAT IS ENABLED
             logstash_format: 'Off'

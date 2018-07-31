@@ -9,10 +9,10 @@ parameters:
           haproxy:
             format: regex
             # https://regex101.com/r/ThV0ty
-            regex: '^(?<time>[^ +][-:0-9TZ]+|[[:upper:]][[:lower:]]{2}[ -:+0-9TZ]*)([^ ][+0:]+|\s+)(\s*)(?<host>[^ ][-\w]+)(\s*)(?<service>[^ ][-\[\]\d\w]+):\s+(?<message>[^ ].*)$'
-            time_key: time
+            regex: '^(?<log_time>[^ +][-:0-9TZ]+|[[:upper:]][[:lower:]]{2}[ -:+0-9TZ]*)([^ ][+0:]+|\s+)(\s*)(?<host>[^ ][-\w]+)(\s*)(?<service>[^ ][-\[\]\d\w]+):\s+(?<message>[^ ].*)$'
+            time_key: log_time
             time_format: ${_param:fluentbit_config_timeformat}
-            time_keep: 'On'
+            time_keep: 'Off'
     service:
       parsers_file:
         - 'parser_haproxy.conf'

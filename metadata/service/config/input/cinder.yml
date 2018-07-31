@@ -1,0 +1,25 @@
+classes:
+- service.fluentbit.config
+- service.fluentbit.config.parser.neutron
+
+parameters:
+  fluentbit:
+    config:
+      input:
+        neutron.conf:
+          neutron:
+            name: tail
+            parser: neutron
+            path: ${_param:fluentbit_config_syslogpath}/neutron/neutron*.log*
+            path_key: path
+            DB: /var/lib/fluentbit/neutron.flb.db
+            exclude_path: '*.gz,*.xz'
+            #multiline_flush: 4
+            multiline: On
+            chunk_size: 32k
+            buffer_max_size: 1M
+            tag: openstack.neutron
+      service:
+        td-agent-bit.conf:
+          - '@INCLUDE input_neutron.conf'
+

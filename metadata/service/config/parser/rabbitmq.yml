@@ -8,15 +8,14 @@ parameters:
         rabbitmq.conf:
           rabbitmq:
             format: regex
-            # https://regex101.com/r/zGYU05/2
-            regex: '^=(?<severity>[^ ].*)\s+REPORT[=\s]*(?<time>[^ =]*)\s*[=]*\n(?<message>(?s)^(.*?)(?:(?:\r*\n){2}))'
-            time_key: time
+            # https://regex101.com/r/
+            regex: '^=(?<severity>[^ ]\w+)\s+REPORT[=\s]*(?<log_time>[^ =]*)\s*[=]+(?<message>.*)$'
+            time_key: log_time
             time_format: ${_param:fluentbit_config_timeformat}
-            time_keep: 'On'
-            types:
-              - 'component:string'
-              - 'serverity:string'
-              - 'message:string'
+            time_keep: 'Off'
+            #types:
+            #  - 'serverity:string'
+            #  - 'message:string'
     service:
       parsers_file:
         - 'parser_rabbitmq.conf'

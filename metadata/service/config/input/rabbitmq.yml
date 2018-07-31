@@ -8,15 +8,16 @@ parameters:
       input:
         rabbitmq.conf:
           tail:
-            parser: rabbitmq
+            multiline: 'On'
+            parser_firstline: rabbitmq
+            ##
             path: ${_param:fluentbit_config_syslogpath}/rabbitmq/rabbit*
             path_key: path
-            DB: /tmp/rabbitmq.flb.db
+            DB: /var/lib/fluentbit/rabbitmq.flb.db
             exclude_path: '*.gz,*.xz'
-            multiline_flush: 4
-            multiline: Off
-            chunk_size: 32k
-            buffer_max_size: 64k
+            #multiline_flush: 20
+            buffer_chunk_size: 32k
+            buffer_max_size: 1M
             tag: rabbitmq
       service:
         td-agent-bit.conf:
